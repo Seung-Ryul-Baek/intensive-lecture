@@ -34,6 +34,7 @@ public class PolicyHandler {
             Lecture[] lectures = lectureRepository.findByCourseIdAndStudentId(paymentApproved.getCourseId(), paymentApproved.getStudentId());
             for (Lecture lecture: lectures) {
                 lecture.setStatus("Paid");
+                lecture.setPaid(true);
                 lectureRepository.save(lecture);
             }
         }
