@@ -73,8 +73,8 @@ server:
 
 feign:
   payment:
-    url: http://localhost:8080/payments
+    url: http://localhost:8080
   course:
-    url: http://localhost:8080/courses
+    url: http://localhost:8080
   student:
-    url: http://localhost:8080/students
+    url: http://localhost:8080
