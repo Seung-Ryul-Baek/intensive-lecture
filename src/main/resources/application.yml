@@ -31,6 +31,10 @@ spring:
           destination: demo
           contentType: application/json
 
+feign:
+  payment:
+    url: localhost:8084
+
 logging:
   level:
     org.hibernate.type: trace
@@ -62,3 +66,7 @@ spring:
           contentType: application/json
 server:
   port: 8080
+
+feign:
+  payment:
+    url: http://payment:8080
