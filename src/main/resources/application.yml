@@ -13,7 +13,7 @@ spring:
     stream:
       kafka:
         binder:
-          brokers: 10.250.172.180:9092
+          brokers: localhost:9092
         streams:
           binder:
             configuration:
@@ -38,7 +38,15 @@ feign:
     url: localhost:8081
   student:
     url: localhost:8085
+  hystrix:
+    enabled: true
 
+hystrix:
+  command:
+    # 전역설정
+    default:
+      execution.isolation.thread.timeoutInMilliseconds: 610
+      
 logging:
   level:
     org.hibernate.type: trace
