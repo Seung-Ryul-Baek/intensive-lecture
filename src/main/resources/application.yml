@@ -13,7 +13,7 @@ spring:
     stream:
       kafka:
         binder:
-          brokers: 10.250.172.236:9092
+          brokers: 10.250.172.180:9092
         streams:
           binder:
             configuration:
@@ -34,6 +34,10 @@ spring:
 feign:
   payment:
     url: localhost:8084
+  course:
+    url: localhost:8081
+  student:
+    url: localhost:8085
 
 logging:
   level:
@@ -69,4 +73,8 @@ server:
 
 feign:
   payment:
-    url: http://payment:8080
+    url: http://localhost:8080/payments
+  course:
+    url: http://localhost:8080/courses
+  student:
+    url: http://localhost:8080/students
