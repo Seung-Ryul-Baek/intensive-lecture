@@ -26,14 +26,17 @@ public class Lecture {
     String status;
     Boolean paid;
     Boolean completed;
+    Boolean canceled;
 
     @PrePersist
     public void onPrePersist() {
         LectureRequested lectureRequested = new LectureRequested();
+        lectureRequested.setStatus("Enrolled");
+        lectureRequested.setCompleted(false);
+        lectureRequested.setPaid(false);
+        lectureRequested.setCanceled(false);
+
         BeanUtils.copyProperties(this, lectureRequested);
-        this.setStatus("Enrolled");
-        this.setCompleted(false);
-        this.setPaid(false);
 
         if(this.getCourseId() == null || this.getStudentId() == null) {
             log.error("Lecture Request Error : Type CourseId and StudentId");

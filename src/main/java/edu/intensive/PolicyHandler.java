@@ -29,7 +29,7 @@ public class PolicyHandler {
     }
 
     @StreamListener(KafkaProcessor.INPUT)
-    public void wheneverCourseDeleted(@Payload PaymentApproved paymentApproved) {
+    public void wheneverPaymentApproved(@Payload PaymentApproved paymentApproved) {
         if (paymentApproved.isMe()) {
             Lecture[] lectures = lectureRepository.findByCourseIdAndStudentId(paymentApproved.getCourseId(), paymentApproved.getStudentId());
             for (Lecture lecture: lectures) {
