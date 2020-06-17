@@ -35,3 +35,30 @@ logging:
   level:
     org.hibernate.type: trace
     org.springframework.cloud: debug
+---
+
+spring:
+  profiles: docker
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: my-kafka.kafka.svc.cluster.local:9092
+        streams:
+          binder:
+            configuration:
+              default:
+                key:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                value:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+      bindings:
+        event-in:
+          group: course
+          destination: demo
+          contentType: application/json
+        event-out:
+          destination: demo
+          contentType: application/json
+server:
+  port: 8080
