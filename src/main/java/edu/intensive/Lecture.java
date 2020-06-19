@@ -67,9 +67,14 @@ public class Lecture {
     public void onPreUpdate() {
         if(this.getStatus().equals("completed")) {
             this.setCompleted(true);
-            LectureCompleted lectureCompleted = new LectureCompleted();
-            BeanUtils.copyProperties(this, lectureCompleted);
-            lectureCompleted.publishAfterCommit();
+            Certification certification = new Certification();
+            certification.setCourseId(this.courseId);
+            certification.setStatus("Certified");
+            certification.setStudentId(this.studentId);
+
+            LectureApplication.applicationContext.getBean(CertificationService.class).certi(certification);
+
+
         }
         else if (this.getStatus().equals("Paid")) {
             LectureApproved lectureApproved = new LectureApproved();
