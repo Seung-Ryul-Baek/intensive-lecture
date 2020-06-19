@@ -1,9 +1,6 @@
 package edu.intensive;
 
-import edu.intensive.external.CourseService;
-import edu.intensive.external.Payment;
-import edu.intensive.external.PaymentService;
-import edu.intensive.external.StudentService;
+import edu.intensive.external.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +24,7 @@ public class Lecture {
     Boolean paid;
     Boolean completed;
     Boolean canceled;
+    Double grade;
 
     @PrePersist
     public void onPrePersist() {
@@ -73,7 +71,7 @@ public class Lecture {
             BeanUtils.copyProperties(this, lectureCompleted);
             lectureCompleted.publishAfterCommit();
         }
-        else if (this.getStatus().equals("approved")) {
+        else if (this.getStatus().equals("Paid")) {
             LectureApproved lectureApproved = new LectureApproved();
             BeanUtils.copyProperties(this, lectureApproved);
             lectureApproved.publishAfterCommit();
@@ -82,6 +80,15 @@ public class Lecture {
             LectureCanceled lectureCanceled = new LectureCanceled();
             BeanUtils.copyProperties(this, lectureCanceled);
             lectureCanceled.publishAfterCommit();
+        }
+        else if (this.getStatus().equals("evaluated")) {
+            Certification certification = LectureApplication.applicationContext.getBean(CertificationService.class).getCertification(this.courseId, this.studentId);
+
+            if(certification.getStatus()!=null && certification.getStatus().equals("Certified") && this.getGrade()!=null) {
+                LectureEvaluated lectureEvaluated = new LectureEvaluated();
+                BeanUtils.copyProperties(this, lectureEvaluated);
+                lectureEvaluated.publishAfterCommit();
+            }
         }
     }
     @PreRemove

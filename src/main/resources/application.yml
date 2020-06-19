@@ -13,7 +13,7 @@ spring:
     stream:
       kafka:
         binder:
-          brokers: localhost:9092
+          brokers: 10.250.172.236:9092
         streams:
           binder:
             configuration:
@@ -38,6 +38,8 @@ feign:
     url: localhost:8081
   student:
     url: localhost:8085
+  certification:
+    url: localhost:8083
   hystrix:
     enabled: true
 
@@ -86,3 +88,5 @@ feign:
     url: course:8080
   student:
     url: student:8080
+  certification:
+    url: certification:8080
